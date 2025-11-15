@@ -1,0 +1,31 @@
+<div class="gerente-layout">
+  <header class="gerente-header">
+    <div class="logo">Banco de Agricultura</div>
+    <button class="menu-btn" aria-label="Menú">≡</button>
+  </header>
+
+  <main class="gerente-content">
+    <section class="dashboard-card">
+      <div class="gerente-info">
+        <p class="gerente-nombre">Gerente: {{ nombreGerente }}</p>
+      </div>
+
+      <div class="acciones-container">
+        <div class="acciones-superiores">
+          <button type="button" class="accion-btn" (click)="irNuevoEmpleado()">
+            Nuevo Empleado
+          </button>
+          <button type="button" class="accion-btn" (click)="irGestionPersonal()">
+            Gestion Personal
+          </button>
+        </div>
+        <div class="accion-inferior">
+          <button type="button" class="accion-btn" (click)="irPrestamos()">
+            Prestamos
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+

@@ -1,0 +1,196 @@
+<div class="cliente-layout" *ngIf="!loading; else loadingTpl">
+  <header class="cliente-header">
+    <div class="logo">Banco de Agricultura</div>
+    <div class="header-actions">
+      <button class="icon-btn" aria-label="Menú">≡</button>
+    </div>
+  </header>
+
+  <main class="cliente-content">
+    <ng-container *ngIf="!cuentaSeleccionada; else detalleTpl">
+      <section class="cuentas-list">
+        <article class="cuenta-card" *ngFor="let cuenta of cuentas">
+          <div class="cuenta-info">
+            <h2><span>{{ cuenta.numeroCuenta }}</span> {{ cuenta.tipoCuenta }}</h2>
+            <div class="cuenta-saldo">
+              <strong>
+                {{ cuenta.saldo | currency:'USD':'symbol':'1.2-2' }}
+              </strong>
+              <p>Saldo disponible</p>
+            </div>
+          </div>
+          <button class="accion-btn" type="button" (click)="verDetalle(cuenta)">Administrar</button>
+        </article>
+
+        <article class="cuenta-card crear-cuenta">
+          <div class="crear-texto">Crear nueva cuenta</div>
+          <button class="crear-btn" aria-label="Crear cuenta" type="button" (click)="abrirModalCrearCuenta()" [disabled]="!puedeCrearCuenta">
+            +
+          </button>
+          <div class="crear-aviso" *ngIf="!puedeCrearCuenta">
+            Límite de 3 cuentas alcanzado.
+          </div>
+        </article>
+      </section>
+    </ng-container>
+  </main>
+
+  <section class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </section>
+</div>
+
+<div class="modal-overlay" *ngIf="mostrarModalCrear">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTituloCrearCuenta">
+    <h3 id="modalTituloCrearCuenta">Crear nueva cuenta</h3>
+    <p class="modal-texto">Selecciona el tipo de cuenta que deseas abrir:</p>
+
+    <div class="tipo-opciones">
+      <button
+        type="button"
+        class="tipo-opcion"
+        [class.tipo-opcion--activa]="tipoCuentaSeleccionada === 'Cuenta Corriente'"
+        (click)="seleccionarTipoCuenta('Cuenta Corriente')"
+        [attr.aria-pressed]="tipoCuentaSeleccionada === 'Cuenta Corriente'"
+      >
+        Cuenta Corriente
+      </button>
+      <button
+        type="button"
+        class="tipo-opcion"
+        [class.tipo-opcion--activa]="tipoCuentaSeleccionada === 'Cuenta de Ahorro'"
+        (click)="seleccionarTipoCuenta('Cuenta de Ahorro')"
+        [attr.aria-pressed]="tipoCuentaSeleccionada === 'Cuenta de Ahorro'"
+      >
+        Cuenta de Ahorro
+      </button>
+    </div>
+
+    <div class="modal-error" *ngIf="crearCuentaError">
+      {{ crearCuentaError }}
+    </div>
+
+    <div class="modal-acciones">
+      <button type="button" class="btn-secundario" (click)="cerrarModalCrearCuenta()" [disabled]="creandoCuenta">
+        Cancelar
+      </button>
+      <button type="button" class="btn-principal" (click)="confirmarCreacionCuenta()" [disabled]="creandoCuenta">
+        <span *ngIf="!creandoCuenta">Crear cuenta</span>
+        <span *ngIf="creandoCuenta">Creando...</span>
+      </button>
+    </div>
+
+    <p class="modal-aviso">
+      Cada cliente puede tener como máximo 3 cuentas activas.
+    </p>
+  </div>
+</div>
+
+<ng-template #detalleTpl>
+  <section class="detalle-wrapper" *ngIf="cuentaSeleccionada as cuenta">
+    <button class="detalle-back" type="button" (click)="cerrarDetalle()" aria-label="Volver">
+      ←
+    </button>
+
+    <article class="detalle-card">
+      <div class="detalle-encabezado">
+        <h2>
+          <span class="numero">{{ cuenta.numeroCuenta }}</span>
+          <span class="tipo">{{ cuenta.tipoCuenta }}</span>
+        </h2>
+        <div class="detalle-saldo">
+          <strong>{{ cuenta.saldo | currency:'USD':'symbol':'1.2-2' }}</strong>
+          <p>Saldo disponible</p>
+        </div>
+      </div>
+
+      <section class="detalle-movimientos">
+        <header class="movimientos-header">
+          <h3>Movimientos</h3>
+        </header>
+
+        <div class="movimientos-contenido" *ngIf="!movimientosLoading; else cargandoMovimientos">
+          <div class="movimientos-error" *ngIf="movimientosError">
+            {{ movimientosError }}
+          </div>
+
+          <ng-container *ngIf="!movimientosError">
+            <div class="movimientos-vacio" *ngIf="!movimientos.length">
+              No hay movimientos registrados.
+            </div>
+
+            <ng-container *ngIf="movimientos.length">
+              <div class="movimiento-grupo">
+                <button class="grupo-cabecera" type="button" (click)="toggleSeccion('depositos')">
+                  <span>Depósitos</span>
+                  <span class="flecha">{{ obtenerIconoSeccion('depositos') }}</span>
+                </button>
+                <ul class="grupo-lista" *ngIf="seccionActiva === 'depositos'">
+                  <li class="movimiento-item" *ngFor="let movimiento of depositos">
+                    <span>{{ movimiento.fecha | date:'dd/MM/yyyy' }}</span>
+                    <span class="monto positivo">
+                      {{ obtenerMontoConSigno(movimiento) | currency:'USD':'symbol':'1.2-2' }}
+                    </span>
+                  </li>
+                  <li class="movimiento-item movimiento-vacio" *ngIf="!depositos.length">
+                    No hay depósitos
+                  </li>
+                </ul>
+              </div>
+
+              <div class="movimiento-grupo">
+                <button class="grupo-cabecera" type="button" (click)="toggleSeccion('retiros')">
+                  <span>Retiros</span>
+                  <span class="flecha">{{ obtenerIconoSeccion('retiros') }}</span>
+                </button>
+                <ul class="grupo-lista" *ngIf="seccionActiva === 'retiros'">
+                  <li class="movimiento-item" *ngFor="let movimiento of retiros">
+                    <span>{{ movimiento.fecha | date:'dd/MM/yyyy' }}</span>
+                    <span class="monto negativo">
+                      {{ obtenerMontoConSigno(movimiento) | currency:'USD':'symbol':'1.2-2' }}
+                    </span>
+                  </li>
+                  <li class="movimiento-item movimiento-vacio" *ngIf="!retiros.length">
+                    No hay retiros
+                  </li>
+                </ul>
+              </div>
+
+              <div class="movimiento-grupo">
+                <button class="grupo-cabecera" type="button" (click)="toggleSeccion('transferencias')">
+                  <span>Transferencias</span>
+                  <span class="flecha">{{ obtenerIconoSeccion('transferencias') }}</span>
+                </button>
+                <ul class="grupo-lista" *ngIf="seccionActiva === 'transferencias'">
+                  <li class="movimiento-item" *ngFor="let movimiento of transferencias">
+                    <span>{{ movimiento.fecha | date:'dd/MM/yyyy' }}</span>
+                    <span
+                      class="monto"
+                      [ngClass]="{
+                        positivo: obtenerMontoConSigno(movimiento) >= 0,
+                        negativo: obtenerMontoConSigno(movimiento) < 0
+                      }"
+                    >
+                      {{ obtenerMontoConSigno(movimiento) | currency:'USD':'symbol':'1.2-2' }}
+                    </span>
+                  </li>
+                  <li class="movimiento-item movimiento-vacio" *ngIf="!transferencias.length">
+                    No hay transferencias
+                  </li>
+                </ul>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </section>
+    </article>
+  </section>
+</ng-template>
+
+<ng-template #cargandoMovimientos>
+  <div class="movimientos-loading">Cargando movimientos...</div>
+</ng-template>
+
+<ng-template #loadingTpl>
+  <div class="estado-panel">Cargando información...</div>
+</ng-template>

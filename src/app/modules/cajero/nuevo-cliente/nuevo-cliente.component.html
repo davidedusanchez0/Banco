@@ -1,0 +1,65 @@
+<div class="nuevo-cliente-layout">
+  <header class="nuevo-cliente-header">
+    <button type="button" class="back-btn" aria-label="Volver" (click)="volver()">←</button>
+    <div class="logo">Banco de Agricultura</div>
+    <button class="menu-btn" aria-label="Menú">≡</button>
+  </header>
+
+  <main class="nuevo-cliente-content">
+    <section class="form-card">
+      <h1>Datos Cliente</h1>
+
+      <form [formGroup]="formulario" (ngSubmit)="submit()">
+        <div class="form-grid">
+          <label class="form-field">
+            <span>Nombres:</span>
+            <input type="text" formControlName="nombres" [class.invalid]="mostrarCampoInvalido('nombres')" />
+          </label>
+
+          <label class="form-field">
+            <span>Direccion:</span>
+            <input type="text" formControlName="direccion" [class.invalid]="mostrarCampoInvalido('direccion')" />
+          </label>
+
+          <label class="form-field">
+            <span>Apellidos:</span>
+            <input type="text" formControlName="apellidos" [class.invalid]="mostrarCampoInvalido('apellidos')" />
+          </label>
+
+          <label class="form-field">
+            <span>Salario:</span>
+            <input type="number" step="0.01" formControlName="salario" [class.invalid]="mostrarCampoInvalido('salario')" />
+          </label>
+
+          <label class="form-field">
+            <span>Dui:</span>
+            <input type="text" formControlName="dui" [class.invalid]="mostrarCampoInvalido('dui')" />
+          </label>
+
+          <label class="form-field">
+            <span>Genero:</span>
+            <input type="text" formControlName="genero" [class.invalid]="mostrarCampoInvalido('genero')" />
+          </label>
+
+          <label class="form-field form-field-full">
+            <span>Contraseña:</span>
+            <input type="password" formControlName="password" [class.invalid]="mostrarCampoInvalido('password')" />
+          </label>
+        </div>
+
+        <div class="mensajes">
+          <p class="mensaje-error" *ngIf="error">{{ error }}</p>
+          <p class="mensaje-exito" *ngIf="exito">{{ exito }}</p>
+        </div>
+
+        <div class="acciones">
+          <button type="submit" class="btn-primario" [disabled]="creando">
+            <span *ngIf="!creando">Crear</span>
+            <span *ngIf="creando">Creando...</span>
+          </button>
+        </div>
+      </form>
+    </section>
+  </main>
+</div>
+

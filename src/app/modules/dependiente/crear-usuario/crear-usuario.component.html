@@ -1,0 +1,50 @@
+<div class="crear-layout">
+  <header class="crear-header">
+    <button type="button" class="back-btn" aria-label="Volver" (click)="volver()">←</button>
+    <div class="logo">Banco de Agricultura</div>
+    <button class="menu-btn" aria-label="Menú">≡</button>
+  </header>
+
+  <main class="crear-content">
+    <section class="form-card">
+      <h1>Datos Usuario</h1>
+
+      <form [formGroup]="formulario" (ngSubmit)="submit()">
+        <div class="form-grid">
+          <label class="form-field">
+            <span>Nombres:</span>
+            <input type="text" formControlName="nombres" [class.invalid]="mostrarCampoInvalido('nombres')" />
+          </label>
+
+          <label class="form-field">
+            <span>Género:</span>
+            <input type="text" formControlName="genero" [class.invalid]="mostrarCampoInvalido('genero')" />
+          </label>
+
+          <label class="form-field">
+            <span>Apellidos:</span>
+            <input type="text" formControlName="apellidos" [class.invalid]="mostrarCampoInvalido('apellidos')" />
+          </label>
+
+          <label class="form-field">
+            <span>DUI:</span>
+            <input type="text" formControlName="dui" [class.invalid]="mostrarCampoInvalido('dui')" />
+          </label>
+        </div>
+
+        <div class="mensajes">
+          <p class="mensaje-error" *ngIf="error">{{ error }}</p>
+          <p class="mensaje-exito" *ngIf="exito">{{ exito }}</p>
+        </div>
+
+        <div class="acciones">
+          <button type="submit" class="btn-primario" [disabled]="creando">
+            <span *ngIf="!creando">Crear</span>
+            <span *ngIf="creando">Creando...</span>
+          </button>
+        </div>
+      </form>
+    </section>
+  </main>
+</div>
+

@@ -1,0 +1,34 @@
+<div class="dependiente-layout" *ngIf="!loading; else loadingTpl">
+  <header class="dependiente-header">
+    <div class="logo">Banco de Agricultura</div>
+    <button class="menu-btn" aria-label="Menú">≡</button>
+  </header>
+
+  <main class="dependiente-content">
+    <section class="resumen-card" *ngIf="!error; else errorTpl">
+      <div class="resumen-textos">
+        <h1>{{ nombreDependiente }}</h1>
+        <p class="comision">
+          Comisión acumulada:
+          <span>{{ comisionAcumulada | currency:'USD':'symbol':'1.0-2' }}</span>
+        </p>
+      </div>
+
+      <div class="acciones">
+        <button type="button" class="btn-primario" (click)="irCrearUsuario()">Crear Usuario</button>
+        <button type="button" class="btn-primario">Ingreso y retiro</button>
+      </div>
+    </section>
+  </main>
+</div>
+
+<ng-template #loadingTpl>
+  <div class="estado-panel">Cargando información...</div>
+</ng-template>
+
+<ng-template #errorTpl>
+  <div class="mensaje-error">
+    {{ error }}
+  </div>
+</ng-template>
+

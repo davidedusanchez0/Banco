@@ -1,0 +1,123 @@
+ .dependiente-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f4f4;
+  color: #222;
+}
+
+.dependiente-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background-color: #0f4b28;
+  color: #fff;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+
+.menu-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.dependiente-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.resumen-card {
+  background: #d9d9d9;
+  border-radius: 18px;
+  padding: 2.5rem 3rem;
+  max-width: 820px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.resumen-textos h1 {
+  margin: 0;
+  font-size: 1.9rem;
+  font-weight: 700;
+}
+
+.comision {
+  margin: 0.75rem 0 0;
+  font-size: 1.1rem;
+}
+
+.comision span {
+  font-weight: 700;
+  margin-left: 0.35rem;
+}
+
+.acciones {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.btn-primario {
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.75rem 2.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.btn-primario:hover {
+  transform: translateY(-2px);
+}
+
+.estado-panel,
+.mensaje-error {
+  text-align: center;
+  padding: 2rem;
+  color: #0f4b28;
+}
+
+.mensaje-error {
+  color: #b52525;
+}
+
+@media (max-width: 768px) {
+  .dependiente-content {
+    padding: 1.5rem;
+  }
+
+  .resumen-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+
+  .acciones {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .btn-primario {
+    width: 100%;
+    text-align: center;
+  }
+}
+

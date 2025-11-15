@@ -1,0 +1,30 @@
+<div class="cajero-layout">
+  <header class="cajero-header">
+    <div class="logo">Banco de Agricultura</div>
+    <button class="menu-btn" aria-label="Menú">≡</button>
+  </header>
+
+  <main class="cajero-content">
+    <section class="dashboard-card">
+      <div class="cajero-info">
+        <p class="cajero-nombre">Cajero: {{ nombreCajero }}</p>
+      </div>
+
+      <div class="acciones-grid">
+        <button type="button" class="accion-btn" (click)="irNuevoCliente()">
+          Nuevo Cliente
+        </button>
+        <button type="button" class="accion-btn" (click)="irAgregarDependientes()">
+          Agregar dependientes
+        </button>
+        <button type="button" class="accion-btn" (click)="irDepositosYRetiros()">
+          Depositos Y Retiros
+        </button>
+        <button type="button" class="accion-btn" (click)="irPrestamos()">
+          Prestamos
+        </button>
+      </div>
+    </section>
+  </main>
+</div>
+
