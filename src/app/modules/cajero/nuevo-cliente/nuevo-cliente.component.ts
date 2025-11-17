@@ -27,7 +27,11 @@ export class NuevoClienteComponent {
       genero: ['', [Validators.required, Validators.maxLength(20)]],
       direccion: ['', [Validators.required, Validators.maxLength(255)]],
       salario: ['', [Validators.required, Validators.min(0)]],
-      password: ['', [Validators.required, Validators.minLength(4)]]
+      correo: ['', [Validators.required, Validators.email, Validators.maxLength(200)]],
+      estadoCivil: ['', [Validators.required, Validators.maxLength(50)]],
+      fechaNacimiento: ['', [Validators.required]],
+      usuario: ['', [Validators.required, Validators.maxLength(100)]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
@@ -38,6 +42,7 @@ export class NuevoClienteComponent {
   submit(): void {
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();
+      this.error = 'Por favor complete los campos obligatorios.';
       return;
     }
 
@@ -45,7 +50,7 @@ export class NuevoClienteComponent {
     this.error = '';
     this.exito = '';
 
-    const { nombres, apellidos, dui, genero, direccion, salario, password } = this.formulario.value;
+    const { nombres, apellidos, dui, genero, direccion, salario, correo, estadoCivil, fechaNacimiento, usuario, password } = this.formulario.value;
     
     this.cajeroService.crearCliente({
       nombre: nombres,
@@ -54,6 +59,10 @@ export class NuevoClienteComponent {
       genero,
       direccion,
       salario: parseFloat(salario) || 0,
+      correo,
+      estadoCivil,
+      fechaNacimiento,
+      usuario,
       password
     }).subscribe({
       next: () => {
@@ -66,7 +75,10 @@ export class NuevoClienteComponent {
       },
       error: err => {
         this.creando = false;
-        this.error = err?.error?.error || err?.message || 'No fue posible crear el cliente.';
+        const status = err?.status ? ` (${err.status})` : '';
+        const url = err?.url ? ` en ${err.url}` : '';
+        const detalle = err?.error?.error || err?.message || 'No fue posible crear el cliente.';
+        this.error = `Error${status}${url}: ${detalle}`;
       }
     });
   }

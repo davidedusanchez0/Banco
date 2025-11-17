@@ -7,29 +7,25 @@
 
   <main class="crear-content">
     <section class="form-card">
-      <h1>Datos Usuario</h1>
+      <h1>Datos de nuevo dependiente</h1>
 
       <form [formGroup]="formulario" (ngSubmit)="submit()">
         <div class="form-grid">
           <label class="form-field">
-            <span>Nombres:</span>
-            <input type="text" formControlName="nombres" [class.invalid]="mostrarCampoInvalido('nombres')" />
+            <span>Nombre del comercio:</span>
+            <input type="text" formControlName="nombreComercio" [class.invalid]="mostrarCampoInvalido('nombreComercio')" />
           </label>
 
           <label class="form-field">
-            <span>Género:</span>
-            <input type="text" formControlName="genero" [class.invalid]="mostrarCampoInvalido('genero')" />
+            <span>Usuario:</span>
+            <input type="text" formControlName="usuario" [class.invalid]="mostrarCampoInvalido('usuario')" />
           </label>
 
           <label class="form-field">
-            <span>Apellidos:</span>
-            <input type="text" formControlName="apellidos" [class.invalid]="mostrarCampoInvalido('apellidos')" />
+            <span>Password:</span>
+            <input type="password" formControlName="password" [class.invalid]="mostrarCampoInvalido('password')" />
           </label>
 
-          <label class="form-field">
-            <span>DUI:</span>
-            <input type="text" formControlName="dui" [class.invalid]="mostrarCampoInvalido('dui')" />
-          </label>
         </div>
 
         <div class="mensajes">

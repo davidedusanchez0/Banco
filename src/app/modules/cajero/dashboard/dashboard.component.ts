@@ -26,8 +26,7 @@ export class DashboardComponent implements OnInit {
   }
 
   irAgregarDependientes(): void {
-    // TODO: Implementar navegación
-    console.log('Navegar a Agregar Dependientes');
+    this.router.navigate(['/dependiente/crear-usuario']);
   }
 
   irDepositosYRetiros(): void {

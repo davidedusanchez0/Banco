@@ -37,8 +37,39 @@
           </label>
 
           <label class="form-field">
-            <span>Genero:</span>
-            <input type="text" formControlName="genero" [class.invalid]="mostrarCampoInvalido('genero')" />
+            <span>Género:</span>
+            <select formControlName="genero" [class.invalid]="mostrarCampoInvalido('genero')">
+              <option value="" disabled>Seleccione...</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Femenino">Femenino</option>
+            </select>
+          </label>
+
+          <label class="form-field">
+            <span>Correo:</span>
+            <input type="email" formControlName="correo" [class.invalid]="mostrarCampoInvalido('correo')" />
+          </label>
+
+          <label class="form-field">
+            <span>Estado civil:</span>
+            <select formControlName="estadoCivil" [class.invalid]="mostrarCampoInvalido('estadoCivil')">
+              <option value="" disabled>Seleccione...</option>
+              <option value="Soltero">Soltero(a)</option>
+              <option value="Casado">Casado(a)</option>
+              <option value="Divorciado">Divorciado(a)</option>
+              <option value="Viudo">Viudo(a)</option>
+              <option value="Union libre">Unión libre</option>
+            </select>
+          </label>
+
+          <label class="form-field">
+            <span>Usuario:</span>
+            <input type="text" formControlName="usuario" [class.invalid]="mostrarCampoInvalido('usuario')" />
+          </label>
+
+          <label class="form-field">
+            <span>Fecha de nacimiento:</span>
+            <input type="date" formControlName="fechaNacimiento" [class.invalid]="mostrarCampoInvalido('fechaNacimiento')" />
           </label>
 
           <label class="form-field form-field-full">

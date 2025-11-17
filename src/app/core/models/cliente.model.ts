@@ -19,6 +19,7 @@ export interface ClienteRegistro {
   salario?: number;
   direccion?: string;
   password?: string;
+  usuario?: string;
   correo?: string;
   estadoCivil?: string;
   fechaNacimiento?: string;

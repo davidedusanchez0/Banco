@@ -1,5 +1,6 @@
 .crear-layout {
-  min-height: 100vh;
+  /* Evita ocupar toda la altura para no dejar un gran espacio vacío abajo */
+  min-height: auto;
   display: flex;
   flex-direction: column;
   background-color: #f4f4f4;
@@ -32,18 +33,20 @@
   flex: 1;
   display: flex;
   justify-content: center;
-  padding: 2rem;
+  align-items: flex-start; /* acerca la tarjeta al header */
+  padding: 1.5rem 2rem 2rem; /* reduce el espacio inferior */
 }
 
 .form-card {
   background: #d9d9d9;
   border-radius: 18px;
-  padding: 2.5rem 3rem;
-  max-width: 900px;
+  padding: 2rem 2.25rem; /* compacta la tarjeta */
+  max-width: 1000px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 .form-card h1 {
@@ -55,8 +58,8 @@
 
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem 2rem;
+  grid-template-columns: repeat(3, 1fr); /* aprovecha mejor el ancho en desktop */
+  gap: 1.25rem 1.5rem;
 }
 
 .form-field {
@@ -78,7 +81,26 @@
   background: #f9f9f9;
 }
 
+.form-field select {
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  background: #f9f9f9;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #666 50%), linear-gradient(135deg, #666 50%, transparent 50%);
+  background-position: calc(100% - 18px) calc(50% - 3px), calc(100% - 12px) calc(50% - -3px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
 .form-field input.invalid {
+  border: 2px solid #b52525;
+}
+
+.form-field select.invalid {
   border: 2px solid #b52525;
 }
 
@@ -103,6 +125,7 @@
 .acciones {
   display: flex;
   justify-content: flex-end;
+  margin-top: 0.5rem; /* acerca el botón al formulario */
 }
 
 .btn-primario {
