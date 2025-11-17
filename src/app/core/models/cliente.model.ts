@@ -24,4 +24,3 @@ export interface ClienteRegistro {
   estadoCivil?: string;
   fechaNacimiento?: string;
 }
-

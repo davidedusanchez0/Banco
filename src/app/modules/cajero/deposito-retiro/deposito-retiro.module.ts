@@ -2,19 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { CrearUsuarioComponent } from './crear-usuario.component';
+import { DepositoRetiroComponent } from './deposito-retiro.component';
 
 const routes: Routes = [
-  { path: '', component: CrearUsuarioComponent }
+  { path: '', component: DepositoRetiroComponent }
 ];
 
 @NgModule({
-  declarations: [CrearUsuarioComponent],
+  declarations: [DepositoRetiroComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ]
 })
-export class CrearUsuarioModule { }
-
+export class DepositoRetiroModule { }

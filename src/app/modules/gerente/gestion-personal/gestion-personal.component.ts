@@ -116,4 +116,3 @@ export class GestionPersonalComponent {
     return !!ctrl && ctrl.invalid && (ctrl.dirty || ctrl.touched);
   }
 }
-

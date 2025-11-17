@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
@@ -22,7 +23,8 @@ export class DashboardComponent implements OnInit {
   }
 
   irNuevaSucursal(): void {
-    this.router.navigate(['/gerente-general/nueva-sucursal']);
+    // TODO: Implementar navegación
+    console.log('Navegar a Nueva Sucursal');
   }
 
   irGestionPersonal(): void {

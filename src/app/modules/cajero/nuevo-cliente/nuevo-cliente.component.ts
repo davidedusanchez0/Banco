@@ -22,7 +22,7 @@ export class NuevoClienteComponent {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    // Detectar si viene del registro público
+    
     this.esRegistroPublico = !this.route.snapshot.url.some(segment => segment.path === 'cajero');
     this.formulario = this.fb.group({
       nombres: ['', [Validators.required, Validators.maxLength(200)]],

@@ -1,0 +1,99 @@
+<div class="prestamos-layout">
+  <header class="nuevo-cliente-header">
+    <button type="button" class="back-btn" aria-label="Volver" (click)="volver()">←</button>
+    <div class="logo">Banco de Agricultura</div>
+    <button class="menu-btn" aria-label="Menú">≡</button>
+  </header>
+
+  <section class="busqueda-card">
+    <form [formGroup]="formBuscar" (ngSubmit)="buscar()" class="busqueda-form">
+      <label>
+        Buscar por DUI:
+        <input type="text" formControlName="dui" placeholder="01234567-8" />
+      </label>
+      <button type="submit" class="btn" [disabled]="buscando">Buscar</button>
+    </form>
+    <p class="mensaje-error" *ngIf="error">{{ error }}</p>
+    <p class="mensaje-exito" *ngIf="exito">{{ exito }}</p>
+  </section>
+
+  <section class="info-grid" *ngIf="cliente">
+    <div class="grid-row">
+      <div class="grid-label">Nombre</div>
+      <div class="grid-value">{{ cliente?.nombre }}</div>
+    </div>
+    <div class="grid-row">
+      <div class="grid-label-Salario">Salario</div>
+      <div class="grid-value">{{ cliente?.salario | number:'1.2-2' }}</div>
+    </div>
+    <div class="grid-row">
+      <div class="grid-label">Préstamo máximo</div>
+      <div class="grid-value">
+        <ng-container *ngIf="prestamoMaximo !== null; else noMax">
+          {{ prestamoMaximo | number:'1.2-2' }}
+        </ng-container>
+        <ng-template #noMax>-</ng-template>
+      </div>
+    </div>
+    <div class="grid-row">
+      <div class="grid-label">Interés</div>
+      <div class="grid-value">
+        <ng-container *ngIf="interes !== null; else noInteres">
+          {{ interes }} %
+        </ng-container>
+        <ng-template #noInteres>-</ng-template>
+      </div>
+    </div>
+  </section>
+
+  <section class="cuentas-card" *ngIf="cuentas">
+    <h3>Cuentas</h3>
+
+    <ul class="cuentas-list" *ngIf="cuentas.length > 0; else noCuentas">
+      <li *ngFor="let c of cuentas" (click)="seleccionarCuenta(c)"
+          [class.selected]="cuentaSeleccionada === c">
+        <div class="cuenta-num">{{ c.numeroCuenta }}</div>
+        <div class="cuenta-saldo">{{ c.saldo | number:'1.2-2' }}</div>
+      </li>
+    </ul>
+
+    <ng-template #noCuentas>
+      <p class="small">No se encontraron cuentas para este cliente.</p>
+    </ng-template>
+  </section>
+
+  <section class="solicitud-card" *ngIf="cliente">
+    <div class="field-row">
+      <label class="field-label">Número de cuenta</label>
+      <div class="field-value">{{ cuentaSeleccionada?.numeroCuenta || '-' }}</div>
+    </div>
+
+    <div class="field-row">
+      <label class="field-label">Estado</label>
+      <div class="field-value">ESPERA</div>
+    </div>
+
+    <form [formGroup]="formSolicitud" (ngSubmit)="crearSolicitud()" class="solicitud-form">
+      <label class="field-row">
+        <span class="field-label">Monto del préstamo</span>
+        <input type="number" formControlName="monto" min="1" step="0.01" />
+      </label>
+
+      <div class="acciones">
+        <button type="submit" class="btn-primario"
+                [disabled]="procesando || !cuentaSeleccionada || formSolicitud.invalid">
+          {{ procesando ? 'Creando...' : 'Crear solicitud' }}
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <!-- datos devueltos por el servidor -->
+  <section *ngIf="prestamoResult" class="resultado-prestamo">
+    <h4>Resultado del servidor</h4>
+    <div>Cuota mensual: {{ prestamoResult.cuotaMensual | number:'1.2-2' }}</div>
+    <div>Plazo (meses): {{ prestamoResult.plazoEnMeses }}</div>
+    <div>Monto total: {{ prestamoResult.montoTotal | number:'1.2-2' }}</div>
+    <div>Estado: {{ prestamoResult.estado?.nombreEstado || 'en espera' }}</div>
+  </section>
+</div>

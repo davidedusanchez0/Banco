@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -21,9 +22,10 @@ export class CrearUsuarioComponent {
     private router: Router
   ) {
     this.formulario = this.fb.group({
-      nombreComercio: ['', [Validators.required, Validators.maxLength(200)]],
-      usuario: ['', [Validators.required, Validators.maxLength(100)]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      nombres: ['', [Validators.required, Validators.maxLength(200)]],
+      apellidos: ['', [Validators.required, Validators.maxLength(200)]],
+      genero: ['', [Validators.required, Validators.maxLength(20)]],
+      dui: ['', [Validators.required, Validators.maxLength(20)]]
     });
   }
 
@@ -34,30 +36,27 @@ export class CrearUsuarioComponent {
   submit(): void {
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();
-      this.error = 'Por favor complete los campos obligatorios.';
       return;
     }
     this.creando = true;
     this.error = '';
     this.exito = '';
 
-    const { nombreComercio, usuario, password } = this.formulario.value;
-    this.dependienteService.crearUsuario({
-      nombreComercio,
-      usuario,
-      password
+    const { nombres, apellidos, genero, dui } = this.formulario.value;
+    this.dependienteService.crearCliente({
+      nombre: nombres,
+      apellidos,
+      genero,
+      dui
     }).subscribe({
       next: () => {
         this.creando = false;
-        this.exito = 'Dependiente creado correctamente.';
+        this.exito = 'Usuario creado correctamente.';
         this.formulario.reset();
       },
       error: err => {
         this.creando = false;
-        const status = err?.status ? ` (${err.status})` : '';
-        const url = err?.url ? ` en ${err.url}` : '';
-        const detalle = err?.error?.error || err?.message || 'No fue posible crear el usuario.';
-        this.error = `Error${status}${url}: ${detalle}`;
+        this.error = err?.error?.error || err?.message || 'No fue posible crear el usuario.';
       }
     });
   }
@@ -67,4 +66,5 @@ export class CrearUsuarioComponent {
     return !!ctrl && ctrl.invalid && (ctrl.dirty || ctrl.touched);
   }
 }
+
 

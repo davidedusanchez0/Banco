@@ -62,4 +62,3 @@ export class GerenteService {
     return this.http.put<any>(`${environment.apiUrl}/gerente/prestamos/${idPrestamo}`, payload);
   }
 }
-

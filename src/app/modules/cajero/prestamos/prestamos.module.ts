@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard.component';
+import { PrestamosComponent } from './prestamos.component';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent }
+  { path: '', component: PrestamosComponent }
 ];
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [PrestamosComponent],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes)
   ]
 })
-export class DashboardModule { }
-
+export class PrestamosModule {}
