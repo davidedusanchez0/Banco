@@ -14,6 +14,17 @@ export class ClienteService {
     return this.http.get<Cuenta[]>(`${environment.apiUrl}/clientes/${clienteId}/cuentas`);
   }
 
+  // Obtener cliente por DUI (simple, usa query param)
+  obtenerClientePorDui(dui: string): Observable<any> {
+    const url = `${environment.apiUrl}/cajero/clientes/buscar?dui=${encodeURIComponent(dui)}`;
+    return this.http.get<any>(url);
+  }
+
+  // Obtener cliente por DUI usando path param: GET /cajero/cliente/{dui}
+  obtenerClientePorDuiPorPath(dui: string): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/cajero/cliente/${encodeURIComponent(dui)}`);
+  }
+
   obtenerMovimientosCuenta(clienteId: number, cuentaId: number): Observable<Movimiento[]> {
     return this.http.get<Movimiento[]>(
       `${environment.apiUrl}/clientes/${clienteId}/cuentas/${cuentaId}/movimientos`
@@ -25,5 +36,11 @@ export class ClienteService {
       `${environment.apiUrl}/clientes/${clienteId}/cuentas`,
       payload
     );
+  }
+
+  // Obtener criterio de prestamo por salario (nuevo)
+  obtenerCriterioPorSalario(salario: number): Observable<any> {
+    const url = `${environment.apiUrl}/cajero/criterio?salario=${encodeURIComponent(String(salario))}`;
+    return this.http.get<any>(url);
   }
 }

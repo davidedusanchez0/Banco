@@ -1,0 +1,26 @@
+@import url('../nuevo-cliente/nuevo-cliente.component.css');
+
+.tabla-cuentas {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  margin-top: 1rem;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.tabla-cuentas th {
+  background: #0f4b28;
+  color: #fff;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.tabla-cuentas td {
+  padding: 0.75rem;
+  background: #f9f9f9;
+}
+
+.tabla-cuentas tr:nth-child(even) td {
+  background: #eaeaea;
+}

@@ -1,0 +1,88 @@
+<div class="nuevo-cliente-layout">
+  <header class="nuevo-cliente-header">
+    <button type="button" class="back-btn" aria-label="Volver" (click)="volver()">←</button>
+    <div class="logo">Banco de Agricultura</div>
+    <button class="menu-btn" aria-label="Menú">≡</button>
+  </header>
+
+  <main class="nuevo-cliente-content">
+    <section class="form-card">
+
+      <h1>Depósitos y Retiros</h1>
+
+      <!-- BUSCAR CLIENTE POR DUI -->
+      <form [formGroup]="formBuscar" (ngSubmit)="buscarCliente()">
+        <div class="form-field form-field-full">
+          <span>Buscar cliente por DUI:</span>
+          <input type="text" formControlName="dui" [class.invalid]="campoInvalido(formBuscar,'dui')" />
+        </div>
+
+        <div class="acciones">
+          <button type="submit" class="btn-primario" [disabled]="buscando">
+            <span *ngIf="!buscando">Buscar</span>
+            <span *ngIf="buscando">Buscando...</span>
+          </button>
+        </div>
+      </form>
+
+      <!-- ERROR / EXITO -->
+      <div class="mensajes">
+        <p class="mensaje-error" *ngIf="error">{{ error }}</p>
+        <p class="mensaje-exito" *ngIf="exito">{{ exito }}</p>
+      </div>
+
+      <!-- TABLA DE CUENTAS ENCONTRADAS -->
+      <div *ngIf="cuentas.length > 0">
+        <h2>Selecciona una cuenta</h2>
+
+        <table class="tabla-cuentas">
+          <thead>
+            <tr>
+              <th>Cuenta</th>
+              <th>Saldo</th>
+              <th>Tipo</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of cuentas">
+              <td>{{ c.numeroCuenta }}</td>
+              <td>${{ c.saldo  }} </td>
+              <td>{{ c.tipoCuenta }}</td>
+              <td>
+                <button class="btn-primario" (click)="seleccionarCuenta(c)">Seleccionar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- FORMULARIO DE TRANSACCIÓN -->
+      <form *ngIf="cuentaSeleccionada" [formGroup]="formTransaccion" (ngSubmit)="procesar()">
+
+        <div class="form-grid">
+          <label class="form-field">
+            <span>Operación:</span>
+            <select formControlName="operacion">
+              <option value="deposito">Depósito</option>
+              <option value="retiro">Retiro</option>
+            </select>
+          </label>
+
+          <label class="form-field">
+            <span>Monto:</span>
+            <input type="number" step="0.01" formControlName="monto" [class.invalid]="campoInvalido(formTransaccion,'monto')" />
+          </label>
+        </div>
+
+        <div class="acciones">
+          <button type="submit" class="btn-primario" [disabled]="procesando">
+            <span *ngIf="!procesando">Procesar</span>
+            <span *ngIf="procesando">Procesando...</span>
+          </button>
+        </div>
+      </form>
+
+    </section>
+  </main>
+</div>

@@ -23,12 +23,12 @@ export class DashboardComponent implements OnInit {
 
   irNuevoEmpleado(): void {
     // TODO: Implementar navegación
-    console.log('Navegar a Nuevo Empleado');
+   this.router.navigate(['/gerente/nuevo-empleado']);
   }
 
   irGestionPersonal(): void {
     // TODO: Implementar navegación
-    console.log('Navegar a Gestión Personal');
+    this.router.navigate(['/gerente/gestion-personal']);
   }
 
   irPrestamos(): void {

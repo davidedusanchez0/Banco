@@ -32,11 +32,11 @@ export class DashboardComponent implements OnInit {
 
   irDepositosYRetiros(): void {
     // TODO: Implementar navegación
-    console.log('Navegar a Depósitos y Retiros');
+    this.router.navigate(['/cajero/deposito-retiro']);
   }
 
   irPrestamos(): void {
     // TODO: Implementar navegación
-    console.log('Navegar a Préstamos');
+    this.router.navigate(['/cajero/prestamos']);
   }
 }

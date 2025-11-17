@@ -1,0 +1,53 @@
+<div class="gestion-personal">
+  <header class="gp-header">
+    <h2>Gestión de Personal</h2>
+  </header>
+
+  <section class="gp-search">
+    <form [formGroup]="formBuscar" (ngSubmit)="buscarPorId()">
+      <label>
+        ID Empleado
+        <input type="number" formControlName="idEmpleado" />
+      </label>
+      <button type="submit" [disabled]="cargando">Buscar</button>
+    </form>
+    <p class="error" *ngIf="error">{{ error }}</p>
+  </section>
+
+  <section *ngIf="empleado" class="gp-grid">
+    <table class="tabla-empleado">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Puesto</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ empleado.id }}</td>
+          <td>
+            <input type="text" [(ngModel)]="empleado.nombre" />
+            <input type="text" [(ngModel)]="empleado.apellidos" class="apellidos" />
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="empleado.puesto" />
+          </td>
+          <td>
+            <select [(ngModel)]="empleado.estado">
+              <option value="activo">Activo</option>
+              <option value="inactivo">Inactivo</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="acciones">
+      <button (click)="guardarCambios()" [disabled]="guardando">Guardar cambios</button>
+      <button (click)="desactivar()" [disabled]="guardando">Desactivar</button>
+      <p class="exito" *ngIf="exito">{{ exito }}</p>
+    </div>
+  </section>
+</div>

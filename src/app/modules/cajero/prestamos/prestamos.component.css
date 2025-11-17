@@ -1,0 +1,159 @@
+
+.prestamos-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f4f4;
+}
+
+.nuevo-cliente-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  background-color: #0f4b28;
+  color: #fff;
+}
+
+.back-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.busqueda-card,
+.cuentas-card,
+.solicitud-card,
+.info-grid {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  margin-bottom: 1rem;
+}
+
+.busqueda-form {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.busqueda-form input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn {
+  padding: 0.5rem 0.75rem;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.mensaje-error {
+  color: #b00020;
+  margin-top: 0.5rem;
+}
+
+.mensaje-exito {
+  color: #0a7a3b;
+  margin-top: 0.5rem;
+}
+
+.info-grid .grid-row {
+  display: flex;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed #eee;
+}
+
+.grid-label {
+  width: 180px;
+  font-weight: 600;
+  color: #333;
+}
+
+.grid-label-Salario {
+  width: 180px;
+  font-weight: 600;
+  color: #333;
+  padding-right: 200px;
+}
+.grid-value {
+  flex: 1;
+  color: #111;
+}
+
+.cuentas-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cuentas-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+}
+
+.cuentas-list li.selected {
+  background: #e8f5e9;
+  border-left: 4px solid #388e3c;
+}
+
+.cuenta-num {
+  font-weight: 600;
+}
+
+.cuenta-saldo {
+  color: #555;
+}
+
+.field-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.field-label {
+  width: 160px;
+  font-weight: 600;
+  color: #333;
+}
+
+.field-value {
+  flex: 1;
+  color: #111;
+}
+
+.solicitud-form input[type='number'] {
+  padding: 0.5rem;
+  width: 100%;
+  max-width: 320px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.acciones {
+  margin-top: 1rem;
+}
+
+.btn-primario {
+  padding: 0.6rem 1rem;
+  background: #0f8a5f;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-primario[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

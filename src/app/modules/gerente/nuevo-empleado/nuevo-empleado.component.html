@@ -1,0 +1,66 @@
+<div class="nuevo-empleado-layout">
+  <header class="nuevo-empleado-header">
+    <button type="button" class="back-btn" aria-label="Volver" (click)="volver()">←</button>
+    <div class="logo">Banco de Agricultura</div>
+    <button class="menu-btn" aria-label="Menú">≡</button>
+  </header>
+
+  <main class="nuevo-empleado-content">
+    <section class="form-card">
+      <h1>Datos Empleado</h1>
+
+      <form [formGroup]="formulario" (ngSubmit)="submit()">
+        <div class="form-grid">
+          <label class="form-field">
+            <span>Nombre</span>
+            <input type="text" formControlName="nombre" [class.invalid]="mostrarCampoInvalido('nombre')" />
+          </label>
+
+          
+
+          <label class="form-field">
+            <span>Puesto</span>
+            <select formControlName="puesto">
+              <option *ngFor="let p of puestos" [value]="p.value">{{ p.label }}</option>
+            </select>
+          </label>
+
+          <label class="form-field">
+            <span>Estado</span>
+            <select formControlName="estado">
+              <option *ngFor="let s of estados" [value]="s.value">{{ s.label }}</option>
+            </select>
+          </label>
+
+          <label class="form-field">
+            <span>Salario</span>
+            <input type="number" step="0.01" formControlName="salario" [class.invalid]="mostrarCampoInvalido('salario')" />
+          </label>
+
+          <label class="form-field">
+            <span>Usuario</span>
+            <input type="text" formControlName="usuario" [class.invalid]="mostrarCampoInvalido('usuario')" />
+          </label>
+
+          <label class="form-field form-field-full">
+            <span>Contraseña</span>
+            <input type="password" formControlName="password" [class.invalid]="mostrarCampoInvalido('password')" />
+          </label>
+        </div>
+
+        <div class="mensajes">
+          <p class="mensaje-error" *ngIf="error">{{ error }}</p>
+          <p class="mensaje-exito" *ngIf="exito">{{ exito }}</p>
+        </div>
+
+        <div class="acciones">
+          <button type="submit" class="btn-primario" [disabled]="creando">
+            <span *ngIf="!creando">Crear</span>
+            <span *ngIf="creando">Creando...</span>
+          </button>
+        </div>
+      </form>
+    </section>
+  </main>
+</div>
+
