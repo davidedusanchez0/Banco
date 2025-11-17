@@ -7,6 +7,10 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   {
+    path: 'registro',
+    loadChildren: () => import('./modules/cajero/nuevo-cliente/nuevo-cliente.module').then(m => m.NuevoClienteModule)
+  },
+  {
     path: 'cajero',
     loadChildren: () => import('./modules/cajero/cajero.module').then(m => m.CajeroModule),
     canActivate: [AuthGuard]

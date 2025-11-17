@@ -1,0 +1,104 @@
+<div class="gestion-personal-layout">
+  <header class="gestion-personal-header">
+    <button type="button" class="back-btn" aria-label="Volver" (click)="volver()">←</button>
+    <div class="logo">Banco de Agricultura</div>
+    <button class="menu-btn" aria-label="Menú">≡</button>
+  </header>
+
+  <main class="gestion-personal-content">
+    <section class="form-card">
+      <h1>Gestion Personal</h1>
+
+      <div class="busqueda-section">
+        <form [formGroup]="formularioBusqueda" (ngSubmit)="buscar()">
+          <div class="busqueda-container">
+            <label class="busqueda-label">
+              <span>ID Empleado:</span>
+              <input type="text" formControlName="idEmpleado" [class.invalid]="mostrarCampoInvalido('idEmpleado', formularioBusqueda)" />
+            </label>
+            <button type="submit" class="btn-buscar" [disabled]="buscando">
+              <span *ngIf="!buscando">Buscar</span>
+              <span *ngIf="buscando">Buscando...</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="tabla-section" *ngIf="empleado">
+        <table class="tabla-empleados">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>ID</th>
+              <th>Rol</th>
+              <th>Sucursal</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ empleado.nombre }} {{ empleado.apellidos || '' }}</td>
+              <td>{{ empleado.id || empleado.codigo || 'N/A' }}</td>
+              <td>{{ empleado.rol }}</td>
+              <td>{{ empleado.sucursalNombre || empleado.sucursalId || 'N/A' }}</td>
+              <td>{{ empleado.estado }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modificacion-section" *ngIf="empleado">
+        <form [formGroup]="formularioModificacion" (ngSubmit)="modificar()">
+          <div class="form-grid-modificacion">
+            <label class="form-field">
+              <span>Rol:</span>
+              <select formControlName="rol" [class.invalid]="mostrarCampoInvalido('rol', formularioModificacion)">
+                <option value="">Seleccione...</option>
+                <option value="Cajero">Cajero</option>
+                <option value="Dependiente">Dependiente</option>
+                <option value="Gerente">Gerente</option>
+                <option value="Gerente General">Gerente General</option>
+              </select>
+            </label>
+
+            <label class="form-field">
+              <span>Sucursal:</span>
+              <select formControlName="sucursal" [class.invalid]="mostrarCampoInvalido('sucursal', formularioModificacion)">
+                <option value="">Seleccione...</option>
+                <option value="1">Merliot</option>
+                <option value="2">Centro</option>
+                <option value="3">San Salvador</option>
+              </select>
+            </label>
+
+            <label class="form-field">
+              <span>Estado:</span>
+              <select formControlName="estado" [class.invalid]="mostrarCampoInvalido('estado', formularioModificacion)">
+                <option value="">Seleccione...</option>
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="mensajes">
+            <p class="mensaje-error" *ngIf="error">{{ error }}</p>
+            <p class="mensaje-exito" *ngIf="exito">{{ exito }}</p>
+          </div>
+
+          <div class="acciones">
+            <button type="submit" class="btn-primario" [disabled]="modificando">
+              <span *ngIf="!modificando">Modificar</span>
+              <span *ngIf="modificando">Modificando...</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="mensajes" *ngIf="!empleado && error">
+        <p class="mensaje-error">{{ error }}</p>
+      </div>
+    </section>
+  </main>
+</div>
+

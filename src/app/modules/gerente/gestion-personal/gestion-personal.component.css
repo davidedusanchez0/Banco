@@ -1,0 +1,265 @@
+.gestion-personal-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f4f4;
+}
+
+.gestion-personal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  background-color: #0f4b28;
+  color: #fff;
+}
+
+.back-btn,
+.menu-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+
+.gestion-personal-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.form-card {
+  background: #d9d9d9;
+  border-radius: 18px;
+  padding: 2.5rem 3rem;
+  max-width: 1000px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.form-card h1 {
+  text-align: center;
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+
+.busqueda-section {
+  margin-bottom: 1rem;
+}
+
+.busqueda-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.busqueda-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-weight: 600;
+  flex: 1;
+}
+
+.busqueda-label span {
+  font-size: 1.1rem;
+}
+
+.busqueda-label input {
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  background: #f9f9f9;
+}
+
+.busqueda-label input.invalid {
+  border: 2px solid #b52525;
+}
+
+.btn-buscar {
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-buscar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-buscar:not(:disabled):hover {
+  transform: translateY(-2px);
+}
+
+.tabla-section {
+  margin: 1.5rem 0;
+}
+
+.tabla-empleados {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tabla-empleados thead {
+  background: #ffb6c1;
+}
+
+.tabla-empleados th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 700;
+  font-size: 1rem;
+  border: 1px solid #000;
+}
+
+.tabla-empleados td {
+  padding: 1rem;
+  border: 1px solid #000;
+  font-size: 1rem;
+}
+
+.tabla-empleados tbody tr {
+  background: #fff;
+}
+
+.modificacion-section {
+  margin-top: 1.5rem;
+}
+
+.form-grid-modificacion {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.form-field span {
+  font-size: 1.1rem;
+}
+
+.form-field select {
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  background: #f9f9f9;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #666 50%), linear-gradient(135deg, #666 50%, transparent 50%);
+  background-position: calc(100% - 18px) calc(50% - 3px), calc(100% - 12px) calc(50% - -3px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+.form-field select.invalid {
+  border: 2px solid #b52525;
+}
+
+.mensajes {
+  min-height: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.mensaje-error {
+  color: #b52525;
+  margin: 0;
+  font-weight: 600;
+  text-align: center;
+}
+
+.mensaje-exito {
+  color: #0f4b28;
+  margin: 0;
+  font-weight: 600;
+  text-align: center;
+}
+
+.acciones {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-primario {
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.75rem 2.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.btn-primario:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primario:not(:disabled):hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .gestion-personal-content {
+    padding: 1.5rem;
+  }
+
+  .form-card {
+    padding: 2rem;
+  }
+
+  .busqueda-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-grid-modificacion {
+    grid-template-columns: 1fr;
+  }
+
+  .acciones {
+    justify-content: center;
+  }
+
+  .btn-primario {
+    width: 100%;
+  }
+
+  .tabla-empleados {
+    font-size: 0.9rem;
+  }
+
+  .tabla-empleados th,
+  .tabla-empleados td {
+    padding: 0.75rem;
+  }
+}
+

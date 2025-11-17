@@ -22,8 +22,7 @@ export class DashboardComponent implements OnInit {
   }
 
   irNuevaSucursal(): void {
-    // TODO: Implementar navegación
-    console.log('Navegar a Nueva Sucursal');
+    this.router.navigate(['/gerente-general/nueva-sucursal']);
   }
 
   irGestionPersonal(): void {

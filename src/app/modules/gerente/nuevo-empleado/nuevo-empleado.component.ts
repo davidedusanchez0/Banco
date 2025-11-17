@@ -1,50 +1,41 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { CajeroService } from '../../../core/services/cajero.service';
+import { Router } from '@angular/router';
+import { GerenteService } from '../../../core/services/gerente.service';
 
 @Component({
-  selector: 'app-nuevo-cliente',
-  templateUrl: './nuevo-cliente.component.html',
-  styleUrls: ['./nuevo-cliente.component.css']
+  selector: 'app-nuevo-empleado',
+  templateUrl: './nuevo-empleado.component.html',
+  styleUrls: ['./nuevo-empleado.component.css']
 })
-export class NuevoClienteComponent {
+export class NuevoEmpleadoComponent {
 
   formulario: FormGroup;
   creando = false;
   error = '';
   exito = '';
-  esRegistroPublico = false;
 
   constructor(
     private fb: FormBuilder,
-    private cajeroService: CajeroService,
-    private router: Router,
-    private route: ActivatedRoute
+    private gerenteService: GerenteService,
+    private router: Router
   ) {
-    // Detectar si viene del registro público
-    this.esRegistroPublico = !this.route.snapshot.url.some(segment => segment.path === 'cajero');
     this.formulario = this.fb.group({
       nombres: ['', [Validators.required, Validators.maxLength(200)]],
       apellidos: ['', [Validators.required, Validators.maxLength(200)]],
       dui: ['', [Validators.required, Validators.maxLength(20)]],
       genero: ['', [Validators.required, Validators.maxLength(20)]],
       direccion: ['', [Validators.required, Validators.maxLength(255)]],
-      salario: ['', [Validators.required, Validators.min(0)]],
-      correo: ['', [Validators.required, Validators.email, Validators.maxLength(200)]],
-      estadoCivil: ['', [Validators.required, Validators.maxLength(50)]],
-      fechaNacimiento: ['', [Validators.required]],
       usuario: ['', [Validators.required, Validators.maxLength(100)]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      rol: ['', [Validators.required, Validators.maxLength(50)]],
+      sucursal: ['', [Validators.required]],
+      estado: ['', [Validators.required, Validators.maxLength(20)]]
     });
   }
 
   volver(): void {
-    if (this.esRegistroPublico) {
-      this.router.navigate(['/login']);
-    } else {
-      this.router.navigate(['/cajero/dashboard']);
-    }
+    this.router.navigate(['/gerente/dashboard']);
   }
 
   submit(): void {
@@ -58,38 +49,33 @@ export class NuevoClienteComponent {
     this.error = '';
     this.exito = '';
 
-    const { nombres, apellidos, dui, genero, direccion, salario, correo, estadoCivil, fechaNacimiento, usuario, password } = this.formulario.value;
+    const { nombres, apellidos, dui, genero, direccion, usuario, password, rol, sucursal, estado } = this.formulario.value;
     
-    this.cajeroService.crearCliente({
+    this.gerenteService.crearEmpleado({
       nombre: nombres,
       apellidos,
       dui,
       genero,
       direccion,
-      salario: parseFloat(salario) || 0,
-      correo,
-      estadoCivil,
-      fechaNacimiento,
       usuario,
-      password
+      password,
+      rol,
+      sucursalId: parseInt(sucursal) || 0,
+      estado
     }).subscribe({
       next: () => {
         this.creando = false;
-        this.exito = 'Cliente creado correctamente.';
+        this.exito = 'Empleado creado correctamente.';
         this.formulario.reset();
         setTimeout(() => {
-          if (this.esRegistroPublico) {
-            this.router.navigate(['/login']);
-          } else {
-            this.volver();
-          }
+          this.volver();
         }, 2000);
       },
       error: err => {
         this.creando = false;
         const status = err?.status ? ` (${err.status})` : '';
         const url = err?.url ? ` en ${err.url}` : '';
-        const detalle = err?.error?.error || err?.message || 'No fue posible crear el cliente.';
+        const detalle = err?.error?.error || err?.message || 'No fue posible crear el empleado.';
         this.error = `Error${status}${url}: ${detalle}`;
       }
     });

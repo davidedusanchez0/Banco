@@ -1,0 +1,98 @@
+<div class="prestamos-layout">
+  <header class="prestamos-header">
+    <button type="button" class="back-btn" aria-label="Volver" (click)="volver()">←</button>
+    <div class="logo">Banco de Agricultura</div>
+    <button class="menu-btn" aria-label="Menú">≡</button>
+  </header>
+
+  <main class="prestamos-content">
+    <section class="form-card">
+      <h1>Apertura de Prestamos</h1>
+
+      <div class="busqueda-section">
+        <form [formGroup]="formularioBusqueda" (ngSubmit)="buscar()">
+          <div class="busqueda-container">
+            <div class="busqueda-left">
+              <label class="busqueda-label">
+                <span>ID Prestamo:</span>
+                <input type="text" formControlName="idPrestamo" [class.invalid]="mostrarCampoInvalido('idPrestamo', formularioBusqueda)" />
+              </label>
+              <button type="submit" class="btn-buscar" [disabled]="buscando">
+                <span *ngIf="!buscando">Buscar</span>
+                <span *ngIf="buscando">Buscando...</span>
+              </button>
+            </div>
+            <div class="busqueda-right" *ngIf="prestamo">
+              <label class="info-label">
+                <span>Interes:</span>
+                <input type="text" [value]="prestamo.tasaInteres + '%'" readonly />
+              </label>
+              <label class="info-label">
+                <span>Numero de Cuenta:</span>
+                <input type="text" [value]="prestamo.numeroCuenta || prestamo.cuentaId" readonly />
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="tabla-section" *ngIf="prestamo">
+        <table class="tabla-prestamos">
+          <thead>
+            <tr>
+              <th>ID Prestamo</th>
+              <th>Cliente</th>
+              <th>Salario</th>
+              <th>Prestamo</th>
+              <th>Interés%</th>
+              <th>Estado</th>
+              <th>ID Empleado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ prestamo.id || prestamo.codigo }}</td>
+              <td>{{ prestamo.clienteNombre || prestamo.cliente?.nombre || 'N/A' }}</td>
+              <td>{{ prestamo.salarioCliente || prestamo.cliente?.salario || 'N/A' | number }}</td>
+              <td>{{ prestamo.monto | number }}</td>
+              <td>{{ prestamo.tasaInteres }}</td>
+              <td>{{ prestamo.estado }}</td>
+              <td>{{ prestamo.empleadoId || prestamo.empleado?.id || 'N/A' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modificacion-section" *ngIf="prestamo">
+        <form [formGroup]="formularioModificacion" (ngSubmit)="modificar()">
+          <div class="modificacion-container">
+            <label class="form-field">
+              <span>Estado:</span>
+              <select formControlName="estado" [class.invalid]="mostrarCampoInvalido('estado', formularioModificacion)">
+                <option value="">Seleccione...</option>
+                <option value="Espera">Espera</option>
+                <option value="Activo">Activo</option>
+                <option value="Rechazado">Rechazado</option>
+                <option value="Cancelado">Cancelado</option>
+              </select>
+            </label>
+            <button type="submit" class="btn-primario" [disabled]="modificando">
+              <span *ngIf="!modificando">Modificar</span>
+              <span *ngIf="modificando">Modificando...</span>
+            </button>
+          </div>
+
+          <div class="mensajes">
+            <p class="mensaje-error" *ngIf="error">{{ error }}</p>
+            <p class="mensaje-exito" *ngIf="exito">{{ exito }}</p>
+          </div>
+        </form>
+      </div>
+
+      <div class="mensajes" *ngIf="!prestamo && error">
+        <p class="mensaje-error">{{ error }}</p>
+      </div>
+    </section>
+  </main>
+</div>
+

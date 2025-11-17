@@ -1,0 +1,84 @@
+<div class="nuevo-empleado-layout">
+  <header class="nuevo-empleado-header">
+    <button type="button" class="back-btn" aria-label="Volver" (click)="volver()">←</button>
+    <div class="logo">Banco de Agricultura</div>
+    <button class="menu-btn" aria-label="Menú">≡</button>
+  </header>
+
+  <main class="nuevo-empleado-content">
+    <section class="form-card">
+      <h1>Datos Empleado</h1>
+
+      <form [formGroup]="formulario" (ngSubmit)="submit()">
+        <div class="form-grid">
+          <label class="form-field">
+            <span>Nombres:</span>
+            <input type="text" formControlName="nombres" [class.invalid]="mostrarCampoInvalido('nombres')" />
+          </label>
+
+          <label class="form-field">
+            <span>Direccion:</span>
+            <input type="text" formControlName="direccion" [class.invalid]="mostrarCampoInvalido('direccion')" />
+          </label>
+
+          <label class="form-field">
+            <span>Apellidos:</span>
+            <input type="text" formControlName="apellidos" [class.invalid]="mostrarCampoInvalido('apellidos')" />
+          </label>
+
+          <label class="form-field">
+            <span>Rol:</span>
+            <input type="text" formControlName="rol" [class.invalid]="mostrarCampoInvalido('rol')" />
+          </label>
+
+          <label class="form-field">
+            <span>Dui:</span>
+            <input type="text" formControlName="dui" [class.invalid]="mostrarCampoInvalido('dui')" />
+          </label>
+
+          <label class="form-field">
+            <span>Sucursal:</span>
+            <input type="number" formControlName="sucursal" [class.invalid]="mostrarCampoInvalido('sucursal')" />
+          </label>
+
+          <label class="form-field">
+            <span>Genero:</span>
+            <select formControlName="genero" [class.invalid]="mostrarCampoInvalido('genero')">
+              <option value="">Seleccione...</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Femenino">Femenino</option>
+            </select>
+          </label>
+
+          <label class="form-field">
+            <span>Estado:</span>
+            <input type="text" formControlName="estado" [class.invalid]="mostrarCampoInvalido('estado')" />
+          </label>
+
+          <label class="form-field">
+            <span>Usuario:</span>
+            <input type="text" formControlName="usuario" [class.invalid]="mostrarCampoInvalido('usuario')" />
+          </label>
+
+          <label class="form-field">
+            <span>Password:</span>
+            <input type="password" formControlName="password" [class.invalid]="mostrarCampoInvalido('password')" />
+          </label>
+        </div>
+
+        <div class="mensajes">
+          <p class="mensaje-error" *ngIf="error">{{ error }}</p>
+          <p class="mensaje-exito" *ngIf="exito">{{ exito }}</p>
+        </div>
+
+        <div class="acciones">
+          <button type="submit" class="btn-primario" [disabled]="creando">
+            <span *ngIf="!creando">Crear</span>
+            <span *ngIf="creando">Creando...</span>
+          </button>
+        </div>
+      </form>
+    </section>
+  </main>
+</div>
+
